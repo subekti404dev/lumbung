@@ -19,8 +19,6 @@ import { useEffect, useState } from "react";
 import useVaultStore from "../../store/useVault";
 import MonacoEditor from "@monaco-editor/react";
 import dataFormatter from "../../utils/formatter";
-import hljs from "highlight.js";
-import "highlight.js/styles/github.css";
 
 type IModalDownload = {
   data?: any;
@@ -82,10 +80,6 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
       });
     }
   }, [type]);
-
-  useEffect(() => {
-    hljs.highlightAll();
-  });
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
