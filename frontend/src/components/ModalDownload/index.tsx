@@ -82,7 +82,7 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
     }
   }, [type]);
 
-  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}'
+  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}'
 --header 'x-api-token: YOUR_API_TOKEN'`;
 
   return (

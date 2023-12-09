@@ -51,7 +51,9 @@ export const SettingPage = () => {
             {tokens.map((t, i) => {
               return (
                 <Box key={i} display={"flex"} mb={1}>
-                  <Box flex={1}>{t.name}</Box>
+                  <Box flex={1} fontSize={18}>
+                    {t.name}
+                  </Box>
                   <Box>
                     <Button
                       backgroundColor="#7e0b06"
