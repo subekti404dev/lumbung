@@ -19,6 +19,7 @@ import SidebarContent from "./components/Sidebar";
 import { IconType } from "react-icons";
 import { FiFileText, FiSettings } from "react-icons/fi";
 import MobileNav from "./components/MobileNav";
+import { SettingPage } from "./pages/Settings";
 
 interface MenuItemsProps {
   name: string;
@@ -28,7 +29,7 @@ interface MenuItemsProps {
 
 const menus: Array<MenuItemsProps> = [
   { name: "Home", icon: FiFileText, component: HomePage },
-  { name: "Settings", icon: FiSettings, component: () => <>Setting</> },
+  { name: "Settings", icon: FiSettings, component: SettingPage },
 ];
 
 function App() {
@@ -105,7 +106,7 @@ function App() {
                     </DrawerContent>
                   </Drawer>
                   <MobileNav onOpen={onOpen} />
-                  <Box ml={{ base: 0, md: 60 }} p="4" color={"gray.200"}>
+                  <Box ml={{ base: 0, md: 60 }} color={"gray.200"}>
                     <Page />
                   </Box>
                 </Box>

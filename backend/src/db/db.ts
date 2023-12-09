@@ -92,12 +92,11 @@ class Database {
 
   public generateNewToken(name: string) {
     const isExist = this._data.tokens.find((t) => t.name === name);
-    if (!isExist) throw Error("Name already inused");
-    this._data.tokens = [
-      ...this._data.tokens,
-      { token: generateRandomString(32), name },
-    ];
+    if (isExist) throw Error("Name already inused");
+    const token = generateRandomString(32);
+    this._data.tokens = [...this._data.tokens, { token, name }];
     this._writeToFile();
+    return token;
   }
 
   public getAllToken() {

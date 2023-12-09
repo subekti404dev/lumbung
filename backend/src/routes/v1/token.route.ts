@@ -22,9 +22,10 @@ router.post("/", async (req: Request, res: Response) => {
   try {
     const { name } = req.body;
     validateRequiredFields({ name });
-    database.generateNewToken(name);
+    const data = database.generateNewToken(name);
     res.json({
       success: true,
+      data,
     });
   } catch (error: any) {
     res.status(400).json({

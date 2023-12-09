@@ -8,6 +8,7 @@ import {
   ModalFooter,
   Button,
   Box,
+  Spinner,
 } from "@chakra-ui/react";
 
 type IModalDeleteConfirm = {
@@ -15,6 +16,7 @@ type IModalDeleteConfirm = {
   onClose: () => void;
   name: string;
   onDelete?: () => void;
+  loading?: boolean;
 };
 
 export const ModalDeleteConfirm = ({
@@ -22,13 +24,14 @@ export const ModalDeleteConfirm = ({
   onClose,
   name,
   onDelete,
+  loading,
 }: IModalDeleteConfirm) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
       <ModalContent backgroundColor={"#19181B"} color={"#C1C2C5"}>
         <ModalHeader>Confirn Delete</ModalHeader>
-        <ModalCloseButton />
+        {!loading && <ModalCloseButton />}
         <ModalBody>
           <Box>Are you sure want to delete this?</Box>
           <Box>{name}</Box>
@@ -41,6 +44,7 @@ export const ModalDeleteConfirm = ({
             mr={3}
             onClick={onClose}
             _hover={{ backgroundColor: "#2e3236" }}
+            isDisabled={loading}
           >
             No
           </Button>
@@ -48,12 +52,13 @@ export const ModalDeleteConfirm = ({
             backgroundColor="#004C38"
             color={"#C1C2C5"}
             _hover={{ backgroundColor: "#025b43" }}
-            onClick={() => {
-              onDelete?.();
+            onClick={async () => {
+              await onDelete?.();
               onClose();
             }}
+            isDisabled={loading}
           >
-            {"Yes"}
+            {loading ? <Spinner /> : "Yes"}
           </Button>
         </ModalFooter>
       </ModalContent>
