@@ -93,6 +93,12 @@ export const ModalForm = ({
         {!loading && <ModalCloseButton />}
         <ModalBody>
           <Box>
+            {data && (
+              <>
+                <FormLabel mt={4}>Id</FormLabel>
+                <Input value={data.id} isDisabled />
+              </>
+            )}
             <FormLabel mt={4}>Name</FormLabel>
             <Input
               value={form.name}
