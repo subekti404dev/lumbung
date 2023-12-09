@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import useVaultStore from "../../store/useVault";
 import MonacoEditor from "@monaco-editor/react";
 import dataFormatter from "../../utils/formatter";
+import { CopyBlock, nord } from "react-code-blocks";
 
 type IModalDownload = {
   data?: any;
@@ -81,6 +82,9 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
     }
   }, [type]);
 
+  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}'
+--header 'x-api-token: YOUR_API_TOKEN'`;
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
       <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
@@ -108,6 +112,13 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
               options={{ automaticLayout: true, readOnly: true }}
               height="30vh"
               theme="vs-dark"
+            />
+            <FormLabel mt={4}>Curl</FormLabel>
+            <CopyBlock
+              text={curl}
+              language="shell"
+              wrapLongLines
+              theme={nord}
             />
           </Box>
         </ModalBody>
