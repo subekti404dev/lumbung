@@ -86,7 +86,7 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
 --header 'x-api-token: YOUR_API_TOKEN'`;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+    <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
       <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
       <ModalContent backgroundColor={"#19181B"} color={"#C1C2C5"}>
         <ModalHeader>{"Preview"}</ModalHeader>

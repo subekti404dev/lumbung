@@ -86,7 +86,7 @@ export const ModalForm = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+    <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
       <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
       <ModalContent backgroundColor={"#19181B"} color={"#C1C2C5"}>
         <ModalHeader>{data ? "Update" : "Create New"}</ModalHeader>
