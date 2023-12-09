@@ -111,7 +111,7 @@ export const ModalForm = ({
               value={form.data || undefined}
               onChange={handleEditorChange}
               options={{ automaticLayout: true, readOnly: false }}
-              height="45vh"
+              height="35vh"
               theme="vs-dark"
             />
           </Box>
