@@ -77,7 +77,7 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
     if (type === "dotenv") {
       setForm({
         name: data?.name,
-        data: dataFormatter.dotenv(data?.data),
+        data: dataFormatter.dotenv(data?.data)?.replace(/\s*=\s*/g, "="),
       });
     }
   }, [type]);
