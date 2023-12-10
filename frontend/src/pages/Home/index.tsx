@@ -6,7 +6,7 @@ import FloatingButton from "../../components/FloatingButton";
 import { ModalForm } from "../../components/ModalForm";
 import useVaultStore from "../../store/useVault";
 import Item from "./components/Item";
-import { ModalDownload } from "../../components/ModalDownload";
+import { ModalPreview } from "../../components/ModalPreview";
 import useDisclosureWithData from "../../hooks/useDisclosureWithData";
 
 const PlusIcon = chakra(FaPlus);
@@ -57,14 +57,14 @@ export const HomePage = () => {
             modalForm.onClose();
             modalForm.setData(null);
           }}
-          onDownload={() => {
+          onPreview={() => {
             modalPreview.setData(modalForm.data);
-            modalForm.onClose();
-            modalForm.setData(null);
+            // modalForm.onClose();
+            // modalForm.setData(null);
             modalPreview.onOpen();
           }}
         />
-        <ModalDownload
+        <ModalPreview
           data={modalPreview.data}
           isOpen={modalPreview.isOpen}
           onClose={() => {

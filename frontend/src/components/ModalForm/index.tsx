@@ -22,7 +22,7 @@ type IModalForm = {
   data?: any;
   isOpen: boolean;
   onClose: () => void;
-  onDownload?: () => void;
+  onPreview?: () => void;
 };
 
 const formInitValue = {
@@ -30,12 +30,7 @@ const formInitValue = {
   data: "{}",
 };
 
-export const ModalForm = ({
-  isOpen,
-  onClose,
-  onDownload,
-  data,
-}: IModalForm) => {
+export const ModalForm = ({ isOpen, onClose, onPreview, data }: IModalForm) => {
   const [form, setForm] = useState(formInitValue);
   const [isValid, setIsvalid] = useState(true);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -140,7 +135,7 @@ export const ModalForm = ({
                 color={"#C1C2C5"}
                 _hover={{ backgroundColor: "#2e3236" }}
                 mr={3}
-                onClick={onDownload}
+                onClick={onPreview}
                 isDisabled={loading}
               >
                 Preview

@@ -21,7 +21,7 @@ import MonacoEditor from "@monaco-editor/react";
 import dataFormatter from "../../utils/formatter";
 import { CopyBlock, nord } from "react-code-blocks";
 
-type IModalDownload = {
+type IModalPreview = {
   data?: any;
   isOpen: boolean;
   onClose: () => void;
@@ -32,7 +32,7 @@ const formInitValue = {
   data: "{}",
 };
 
-export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
+export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
   const [form, setForm] = useState(formInitValue);
   const [type, setType] = useState("json");
   const [loading] = useVaultStore((s) => [s.loading]);
@@ -85,6 +85,15 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
   const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}'
 --header 'x-api-token: YOUR_API_TOKEN'`;
 
+  const Option = (props: any) => {
+    const { children, ...other } = props || {};
+    return (
+      <option style={{ backgroundColor: "#000", color: "#FFF" }} {...other}>
+        {children}
+      </option>
+    );
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
       <ModalOverlay backdropFilter="blur(10px) hue-rotate(90deg)" />
@@ -100,10 +109,10 @@ export const ModalDownload = ({ isOpen, onClose, data }: IModalDownload) => {
                 setType(value);
               }}
             >
-              <option value="json">JSON</option>
-              <option value="yaml">Yaml</option>
-              <option value="toml">Toml</option>
-              <option value="dotenv">DotEnv</option>
+              <Option value="json">JSON</Option>
+              <Option value="yaml">Yaml</Option>
+              <Option value="toml">Toml</Option>
+              <Option value="dotenv">DotEnv</Option>
             </Select>
             <FormLabel mt={4}>Data</FormLabel>
             <MonacoEditor
