@@ -26,6 +26,7 @@ const Item = ({ data, onClick }: ItemProps) => {
         alignItems={"flex-start"}
         justifyContent={"center"}
         flexDirection={"column"}
+        textAlign={"left"}
       >
         <Box fontSize={12} color={"grey"}>
           Name
@@ -40,6 +41,7 @@ const Item = ({ data, onClick }: ItemProps) => {
         alignItems={"flex-end"}
         justifyContent={"center"}
         flexDirection={"column"}
+        textAlign={"right"}
       >
         <Box fontSize={12} color={"grey"}>
           Last Update
