@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, chakra, useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, chakra } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import FloatingButton from "../../components/FloatingButton";
 import { ModalForm } from "../../components/ModalForm";
-import useMemoryStore from "../../store/useMemory";
 import useVaultStore from "../../store/useVault";
 import Item from "./components/Item";
 import { ModalDownload } from "../../components/ModalDownload";
+import useDisclosureWithData from "../../hooks/useDisclosureWithData";
 
 const PlusIcon = chakra(FaPlus);
 
@@ -16,16 +16,9 @@ export const HomePage = () => {
     store.vaults,
     store.getVaults,
   ]);
-  const [memory] = useMemoryStore((store) => [store.memory]);
-  const [dataToEdit, setDataToEdit] = useState<any>(null);
-  const [dataToDownload, setDataToDownload] = useState<any>(null);
 
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const {
-    isOpen: isOpenDownload,
-    onClose: onCloseDownload,
-    onOpen: onOpenDownload,
-  } = useDisclosure();
+  const modalForm = useDisclosureWithData();
+  const modalPreview = useDisclosureWithData();
 
   useEffect(() => {
     getVaults();
@@ -40,59 +33,6 @@ export const HomePage = () => {
         color={"#C1C2C5"}
         paddingBottom={12}
       >
-        <Box
-          margin={[2, 4, 6, 8]}
-          textAlign={"left"}
-          backgroundColor={"#202123"}
-          padding={[2, 4, 6, 8]}
-          borderRadius={16}
-          border={"1px solid #373A40"}
-          display={"flex"}
-          flexDirection={"row"}
-        >
-          <Box
-            flex={1}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <Box fontSize={12}>Total Memory</Box>
-            <Box fontWeight={600} fontSize={"24px"}>
-              {!!memory &&
-                ((memory.memory.total || 0) / (1024 * 1024)).toFixed(2)}
-              {" GB"}
-            </Box>
-          </Box>
-          <Box
-            flex={1}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <Box fontSize={12}>Memory Usage</Box>
-            <Box fontWeight={600} fontSize={"24px"}>
-              {!!memory &&
-                ((memory.memory.used || 0) / (1024 * 1024)).toFixed(2)}
-              {" GB"}
-            </Box>
-          </Box>
-          <Box
-            flex={1}
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <Box fontSize={12}>Memory Usage (%)</Box>
-            <Box fontWeight={600} fontSize={"24px"}>
-              {!!memory && memory.memory.percentage.toFixed(2)}
-              {" %"}
-            </Box>
-          </Box>
-        </Box>
-
         <Box margin={[2, 4, 6, 8]}>
           {vaults.map((v, i) => {
             return (
@@ -100,36 +40,36 @@ export const HomePage = () => {
                 key={i}
                 data={v}
                 onClick={() => {
-                  setDataToEdit(v);
-                  onOpen();
+                  modalForm.setData(v);
+                  modalForm.onOpen();
                 }}
               />
             );
           })}
         </Box>
-        <FloatingButton onClick={onOpen}>
+        <FloatingButton onClick={modalForm.onOpen}>
           <PlusIcon />
         </FloatingButton>
         <ModalForm
-          data={dataToEdit}
-          isOpen={isOpen}
+          data={modalForm.data}
+          isOpen={modalForm.isOpen}
           onClose={() => {
-            onClose();
-            setDataToEdit(null);
+            modalForm.onClose();
+            modalForm.setData(null);
           }}
           onDownload={() => {
-            setDataToDownload(dataToEdit);
-            onClose();
-            setDataToEdit(null);
-            onOpenDownload();
+            modalPreview.setData(modalForm.data);
+            modalForm.onClose();
+            modalForm.setData(null);
+            modalPreview.onOpen();
           }}
         />
         <ModalDownload
-          data={dataToDownload}
-          isOpen={isOpenDownload}
+          data={modalPreview.data}
+          isOpen={modalPreview.isOpen}
           onClose={() => {
-            onCloseDownload();
-            setDataToDownload(null);
+            modalPreview.onClose();
+            modalPreview.setData(null);
           }}
         />
       </Box>
