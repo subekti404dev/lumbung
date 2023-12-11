@@ -45,18 +45,19 @@ export const SettingPage = () => {
                   <Box as="span" flex="1" textAlign="left">
                     API Token
                   </Box>
+
+                  <Button
+                    backgroundColor="#004C38"
+                    color={"#C1C2C5"}
+                    _hover={{ backgroundColor: "#025b43" }}
+                    onClick={onOpen}
+                    size={"sm"}
+                  >
+                    New Token
+                  </Button>
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <Button
-                  backgroundColor="#004C38"
-                  color={"#C1C2C5"}
-                  _hover={{ backgroundColor: "#025b43" }}
-                  onClick={onOpen}
-                  size={"sm"}
-                >
-                  New Token
-                </Button>
                 {tokens.map((t, i) => {
                   return (
                     <Box key={i} display={"flex"} mb={1}>
