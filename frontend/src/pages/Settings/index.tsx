@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Button, useDisclosure } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import useTokenStore from "../../store/useToken";
 import { ModalGenToken } from "../../components/ModalGenToken";
@@ -30,7 +38,51 @@ export const SettingPage = () => {
         paddingBottom={12}
       >
         <Box margin={[2, 4, 6, 8]}>
-          <Box
+          <Accordion>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Box as="span" flex="1" textAlign="left">
+                    API Token
+                  </Box>
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Button
+                  backgroundColor="#004C38"
+                  color={"#C1C2C5"}
+                  _hover={{ backgroundColor: "#025b43" }}
+                  onClick={onOpen}
+                  size={"sm"}
+                >
+                  New Token
+                </Button>
+                {tokens.map((t, i) => {
+                  return (
+                    <Box key={i} display={"flex"} mb={1}>
+                      <Box flex={1} fontSize={18}>
+                        {t.name}
+                      </Box>
+                      <Box>
+                        <Button
+                          backgroundColor="#7e0b06"
+                          color={"#C1C2C5"}
+                          size={"sm"}
+                          onClick={() => {
+                            setTokenToDelete(t);
+                            modalConfirmDelete.onOpen();
+                          }}
+                        >
+                          Revoke
+                        </Button>
+                      </Box>
+                    </Box>
+                  );
+                })}
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+          {/* <Box
             display={"flex"}
             flexDirection={"row"}
             borderBottom={"1px solid gray"}
@@ -70,7 +122,7 @@ export const SettingPage = () => {
                 </Box>
               );
             })}
-          </Box>
+          </Box> */}
         </Box>
       </Box>
       <ModalGenToken isOpen={isOpen} onClose={onClose} />
