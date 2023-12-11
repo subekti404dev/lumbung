@@ -42,7 +42,13 @@ export const SettingPage = () => {
             <AccordionItem>
               <h2>
                 <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
+                  <Box
+                    as="span"
+                    flex="1"
+                    textAlign="left"
+                    fontSize={20}
+                    fontWeight={600}
+                  >
                     API Token
                   </Box>
 
