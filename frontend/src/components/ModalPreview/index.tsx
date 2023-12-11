@@ -82,7 +82,7 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
     }
   }, [type]);
 
-  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}'
+  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}' \
 --header 'x-api-token: YOUR_API_TOKEN'`;
 
   const Option = (props: any) => {
