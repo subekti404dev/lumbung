@@ -2,6 +2,7 @@ import { database } from "../../db/db";
 import express, { Request, Response } from "express";
 import _ from "lodash";
 import { validateRequiredFields } from "../../utils/field-validation.util";
+import { socket } from "../../utils/socket";
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
@@ -55,6 +56,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     const { name, data } = req.body;
     validateRequiredFields({ id, name, data });
     database.updateVault(id, data);
+    socket.emit(`update_${id}`, JSON.stringify(data));
     res.json({
       success: true,
     });
