@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import useTokenStore from "../../store/useToken";
 import { ModalGenToken } from "../../components/ModalGenToken";
 import { ModalDeleteConfirm } from "../../components/ModalDeleteConfirm";
+import EmptyState from "../../components/EmptyState";
+import { FaArrowDown } from "react-icons/fa";
 
 export const SettingPage = () => {
   const [tokens, getTokens, revokeToken, loading] = useTokenStore((s) => [
@@ -26,7 +28,7 @@ export const SettingPage = () => {
     getTokens();
   }, []);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const modalGenerateToken = useDisclosure();
   const modalConfirmDelete = useDisclosure();
 
   return (
@@ -38,101 +40,83 @@ export const SettingPage = () => {
         paddingBottom={12}
       >
         <Box margin={[2, 4, 6, 8]}>
-          <Accordion>
+          <Accordion borderColor={"gray.600"} allowToggle>
             <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box
-                    as="span"
-                    flex="1"
-                    textAlign="left"
-                    fontSize={20}
-                    fontWeight={600}
-                  >
-                    API Token
-                  </Box>
+              {({ isExpanded }) => (
+                <>
+                  <h2>
+                    <AccordionButton
+                      borderBottomWidth={1}
+                      borderColor={"gray.700"}
+                    >
+                      <Box
+                        as="span"
+                        flex="1"
+                        textAlign="left"
+                        fontSize={20}
+                        fontWeight={600}
+                      >
+                        API Token
+                      </Box>
+                      {!isExpanded && <FaArrowDown />}
 
-                  <Button
-                    backgroundColor="#004C38"
-                    color={"#C1C2C5"}
-                    _hover={{ backgroundColor: "#025b43" }}
-                    onClick={onOpen}
-                    size={"sm"}
-                  >
-                    New Token
-                  </Button>
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}>
-                {tokens.map((t, i) => {
-                  return (
-                    <Box key={i} display={"flex"} mb={1}>
-                      <Box flex={1} fontSize={18}>
-                        {t.name}
-                      </Box>
-                      <Box>
+                      {isExpanded && (
                         <Button
-                          backgroundColor="#7e0b06"
+                          backgroundColor="#004C38"
                           color={"#C1C2C5"}
-                          size={"sm"}
-                          onClick={() => {
-                            setTokenToDelete(t);
-                            modalConfirmDelete.onOpen();
+                          _hover={{ backgroundColor: "#025b43" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            modalGenerateToken.onOpen();
                           }}
+                          size={"sm"}
                         >
-                          Revoke
+                          New Token
                         </Button>
-                      </Box>
-                    </Box>
-                  );
-                })}
-              </AccordionPanel>
+                      )}
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={4}>
+                    {tokens.length === 0 && (
+                      <EmptyState
+                        message="You haven’t added any token."
+                        createNewLabelBtn="Generate Token"
+                        onCreateNew={modalGenerateToken.onOpen}
+                      />
+                    )}
+                    {tokens.map((t, i) => {
+                      return (
+                        <Box key={i} display={"flex"} mb={1}>
+                          <Box flex={1} fontSize={18}>
+                            {t.name}
+                          </Box>
+                          <Box>
+                            <Button
+                              backgroundColor="#7e0b06"
+                              color={"#C1C2C5"}
+                              size={"sm"}
+                              onClick={() => {
+                                setTokenToDelete(t);
+                                modalConfirmDelete.onOpen();
+                              }}
+                            >
+                              Revoke
+                            </Button>
+                          </Box>
+                        </Box>
+                      );
+                    })}
+                  </AccordionPanel>
+                </>
+              )}
             </AccordionItem>
           </Accordion>
-          {/* <Box
-            display={"flex"}
-            flexDirection={"row"}
-            borderBottom={"1px solid gray"}
-            pb={2}
-          >
-            <Box flex={1}>API Token</Box>
-            <Button
-              backgroundColor="#004C38"
-              color={"#C1C2C5"}
-              _hover={{ backgroundColor: "#025b43" }}
-              onClick={onOpen}
-              size={"sm"}
-            >
-              New Token
-            </Button>
-          </Box>
-          <Box mt={4}>
-            {tokens.map((t, i) => {
-              return (
-                <Box key={i} display={"flex"} mb={1}>
-                  <Box flex={1} fontSize={18}>
-                    {t.name}
-                  </Box>
-                  <Box>
-                    <Button
-                      backgroundColor="#7e0b06"
-                      color={"#C1C2C5"}
-                      size={"sm"}
-                      onClick={() => {
-                        setTokenToDelete(t);
-                        modalConfirmDelete.onOpen();
-                      }}
-                    >
-                      Revoke
-                    </Button>
-                  </Box>
-                </Box>
-              );
-            })}
-          </Box> */}
         </Box>
       </Box>
-      <ModalGenToken isOpen={isOpen} onClose={onClose} />
+      <ModalGenToken
+        isOpen={modalGenerateToken.isOpen}
+        onClose={modalGenerateToken.onClose}
+      />
       <ModalDeleteConfirm
         isOpen={modalConfirmDelete.isOpen}
         onClose={() => {

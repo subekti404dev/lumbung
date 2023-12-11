@@ -8,6 +8,7 @@ import useVaultStore from "../../store/useVault";
 import Item from "./components/Item";
 import { ModalPreview } from "../../components/ModalPreview";
 import useDisclosureWithData from "../../hooks/useDisclosureWithData";
+import EmptyState from "../../components/EmptyState";
 
 const PlusIcon = chakra(FaPlus);
 
@@ -34,6 +35,9 @@ export const HomePage = () => {
         paddingBottom={12}
       >
         <Box margin={[2, 4, 6, 8]}>
+          {vaults.length === 0 && (
+            <EmptyState message="You haven’t added any vault." />
+          )}
           {vaults.map((v, i) => {
             return (
               <Item
