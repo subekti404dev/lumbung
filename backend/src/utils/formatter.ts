@@ -34,7 +34,7 @@ export default {
         for (const i in o) {
           let pref = prefix;
           if (_.isArray(o)) {
-            pref = pref + `[${i}]`;
+            pref = pref + `__${i}`;
           } else {
             if (_.isEmpty(prefix)) {
               pref = i;

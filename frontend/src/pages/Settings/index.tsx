@@ -13,7 +13,7 @@ import useTokenStore from "../../store/useToken";
 import { ModalGenToken } from "../../components/ModalGenToken";
 import { ModalDeleteConfirm } from "../../components/ModalDeleteConfirm";
 import EmptyState from "../../components/EmptyState";
-import { FaCaretDown } from "react-icons/fa";
+import { BiCaretDown } from "react-icons/all";
 
 export const SettingPage = () => {
   const [tokens, getTokens, revokeToken, loading] = useTokenStore((s) => [
@@ -58,7 +58,7 @@ export const SettingPage = () => {
                       >
                         API Token
                       </Box>
-                      {!isExpanded && <FaCaretDown />}
+                      {!isExpanded && <BiCaretDown />}
 
                       {isExpanded && (
                         <Button
