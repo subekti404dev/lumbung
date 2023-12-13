@@ -1,12 +1,22 @@
-import http from "http";
+import { database } from "../db/db";
 import { Server as SocketServer } from "socket.io";
-import { getMemoryInfo } from "./memory";
 
 class Socket {
   private _io: SocketServer | null = null;
 
   public init(app: any) {
     this._io = new SocketServer(app, { path: "/io", cors: { origin: "*" } });
+    this._io.use((socket, next) => {
+      try {
+        const token = (socket.handshake.headers || {})["x-api-token"];
+        if (!token) throw Error("token not found");
+        const isExist = database.getAllToken().find((t) => t.token === token);
+        if (!isExist) throw Error("invalid token");
+        next();
+      } catch (error: any) {
+        next(error);
+      }
+    });
     this._subEvents();
   }
 

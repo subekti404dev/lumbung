@@ -12,7 +12,7 @@ const apiToken = (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers?.["x-api-token"] || "";
     if (!token) throw Error("token not found");
     const isExist = database.getAllToken().find((t) => t.token === token);
-    if (!isExist) throw Error("token not found");
+    if (!isExist) throw Error("invalid token");
 
     res.locals.token = token;
     return next();
