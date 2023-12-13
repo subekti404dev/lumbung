@@ -55,8 +55,8 @@ router.put("/:id", async (req: Request, res: Response) => {
     const id = req.params.id;
     const { name, data } = req.body;
     validateRequiredFields({ id, name, data });
-    const oldData = database.getVaultById(id);
-    const isDiff = JSON.stringify(oldData) !== JSON.stringify(data);
+    const vault = database.getVaultById(id);
+    const isDiff = JSON.stringify(vault?.data) !== JSON.stringify(data);
     if (isDiff) {
       database.updateVault(id, data);
       socket.emit(`update_${id}`, JSON.stringify(data));
