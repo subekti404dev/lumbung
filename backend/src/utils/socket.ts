@@ -28,7 +28,7 @@ class Socket {
       socket.on("get", (id: string) => {
         const vault = database.getVaultById(id);
         if (vault?.data) {
-          this._io?.emit(id, JSON.stringify(vault.data));
+          socket?.emit(id, JSON.stringify(vault.data));
         }
       });
 
