@@ -25,9 +25,11 @@ class Socket {
       // console.log("A user connected");
 
       // Listen for messages
-      socket.on("chat message", (msg: string) => {
-        console.log(`Message: ${msg}`);
-        this._io?.emit("chat message", msg);
+      socket.on("get", (id: string) => {
+        const vault = database.getVaultById(id);
+        if (vault?.data) {
+          this._io?.emit(id, JSON.stringify(vault.data));
+        }
       });
 
       socket.on("disconnect", () => {

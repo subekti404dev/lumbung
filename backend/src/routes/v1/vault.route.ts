@@ -59,7 +59,7 @@ router.put("/:id", async (req: Request, res: Response) => {
     const isDiff = JSON.stringify(vault?.data) !== JSON.stringify(data);
     if (isDiff) {
       database.updateVault(id, data);
-      socket.emit(`update_${id}`, JSON.stringify(data));
+      socket.emit(id, JSON.stringify(data));
     }
     res.json({
       success: true,
