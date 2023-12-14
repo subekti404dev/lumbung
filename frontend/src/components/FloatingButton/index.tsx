@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@chakra-ui/react";
-
+// margin={[2, 4, 6, 8]}
 interface IFloatingButton {
   onClick?: () => void;
   children?: any;
@@ -10,8 +10,8 @@ const FloatingButton = ({ onClick, children, isDisabled }: IFloatingButton) => {
   return (
     <Button
       position={"absolute"}
-      bottom={"60px"}
-      right={"60px"}
+      bottom={["20px", "40px", "60px"]}
+      right={["20px", "40px", "60px"]}
       onClick={onClick}
       backgroundColor={"#25262B"}
       color={"#fff"}
