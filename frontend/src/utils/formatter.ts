@@ -48,6 +48,12 @@ export default {
       }
       return result;
     };
-    return json2toml(flattenObject(data), { simple: true });
+    return json2toml(flattenObject(data), { simple: true })
+      .split("\n")
+      .map((line: string) => {
+        const [key, value] = line.split("=");
+        return [key, value.slice(1, -1)].join("=");
+      })
+      .join("\n");
   },
 };
