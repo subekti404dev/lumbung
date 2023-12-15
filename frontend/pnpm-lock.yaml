@@ -10,6 +10,7 @@ specifiers:
   '@testing-library/react': ^13.4.0
   '@testing-library/user-event': ^14.4.3
   '@types/axios': ^0.14.0
+  '@types/base-64': ^1.0.2
   '@types/json-to-pretty-yaml': ^1.2.1
   '@types/lodash': ^4.14.201
   '@types/react': ^18.2.15
@@ -20,6 +21,7 @@ specifiers:
   '@typescript-eslint/parser': ^6.0.0
   '@vitejs/plugin-react': ^4.0.3
   axios: ^1.6.1
+  base-64: ^1.0.0
   date-fns: ^2.30.0
   eslint: ^8.45.0
   eslint-plugin-react-hooks: ^4.6.0
@@ -50,6 +52,7 @@ dependencies:
   '@fontsource/poppins': 4.5.10
   '@monaco-editor/react': 4.6.0_biqbaboplfbrettd7655fr4n2y
   axios: 1.6.2
+  base-64: 1.0.0
   date-fns: 2.30.0
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   json-to-pretty-yaml: 1.2.2
@@ -73,6 +76,7 @@ devDependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 14.5.1
   '@types/axios': 0.14.0
+  '@types/base-64': 1.0.2
   '@types/json-to-pretty-yaml': 1.2.1
   '@types/lodash': 4.14.202
   '@types/react': 18.2.39
@@ -3176,6 +3180,10 @@ packages:
       '@babel/types': 7.23.4
     dev: true
 
+  /@types/base-64/1.0.2:
+    resolution: {integrity: sha512-uPgKMmM9fmn7I+Zi6YBqctOye4SlJsHKcisjHIMWpb2YKZRc36GpKyNuQ03JcT+oNXg1m7Uv4wU94EVltn8/cw==}
+    dev: true
+
   /@types/estree/0.0.39:
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
     dev: false
@@ -3674,6 +3682,10 @@ packages:
 
   /balanced-match/1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /base-64/1.0.0:
+    resolution: {integrity: sha512-kwDPIFCGx0NZHog36dj+tHiwP4QMzsZ3AgMViUBKI0+V5n4U0ufTCUMhnQ04diaRI8EX/QcPfql7zlhZ7j4zgg==}
+    dev: false
 
   /body-scroll-lock/3.1.5:
     resolution: {integrity: sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==}

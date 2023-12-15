@@ -19,7 +19,9 @@ import { useEffect, useState } from "react";
 import useVaultStore from "../../store/useVault";
 import MonacoEditor from "@monaco-editor/react";
 import dataFormatter from "../../utils/formatter";
+import base64 from "base-64";
 import { CopyBlock, nord } from "react-code-blocks";
+import useTokenStore from "../../store/useToken";
 
 type IModalPreview = {
   data?: any;
@@ -35,7 +37,19 @@ const formInitValue = {
 export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
   const [form, setForm] = useState(formInitValue);
   const [type, setType] = useState("json");
+  const [token, setToken] = useState("");
   const [loading] = useVaultStore((s) => [s.loading]);
+  const [tokens, getTokens] = useTokenStore((s) => [s.tokens, s.getTokens]);
+
+  useEffect(() => {
+    getTokens();
+  }, []);
+
+  useEffect(() => {
+    if (tokens.length > 0) {
+      setToken(tokens[0].token);
+    }
+  }, [tokens]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -85,6 +99,13 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
   const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}' \
 --header 'x-api-token: YOUR_API_TOKEN'`;
 
+  const ghaSecret = `${base64.encode(
+    `https://${window.location.hostname}|${data?.id}|${token}`
+  )}`
+    .split("")
+    .reverse()
+    .join("");
+
   const Option = (props: any) => {
     const { children, ...other } = props || {};
     return (
@@ -129,6 +150,27 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
               wrapLongLines
               theme={nord}
             />
+            <FormLabel mt={4}>GHA Secret</FormLabel>
+            <Select
+              value={token}
+              onChange={({ target: { value } }) => {
+                setToken(value);
+              }}
+            >
+              {tokens.map((t, i) => (
+                <Option key={i} value={t.token}>
+                  {t.name}
+                </Option>
+              ))}
+            </Select>
+            {!!token && (
+              <CopyBlock
+                text={ghaSecret}
+                language="shell"
+                wrapLongLines
+                theme={nord}
+              />
+            )}
           </Box>
         </ModalBody>
 
