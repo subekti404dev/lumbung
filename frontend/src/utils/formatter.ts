@@ -51,6 +51,7 @@ export default {
     const str = json2toml(flattenObject(data), { simple: true });
     return str
       .split("\n")
+      .filter((line: string) => line)
       .map((line: string) => {
         const [key, value] = line.split(" = ");
         return [
