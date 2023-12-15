@@ -96,11 +96,13 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
     }
   }, [type]);
 
-  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${data?.id}?type=${type}' \
---header 'x-api-token: YOUR_API_TOKEN'`;
+  const curl = `curl --location 'https://${window.location.hostname}/v1/vwt/${
+    data?.id
+  }?type=${type}' \
+--header 'x-api-token: ${token || "YOUR_API_TOKEN"}'`;
 
   const ghaSecret = `${base64.encode(
-    `https://${window.location.hostname}|${data?.id}|${token}`
+    `${data?.id}|https://${window.location.hostname}|${token}`
   )}`
     .split("")
     .reverse()
@@ -123,6 +125,19 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
         {!loading && <ModalCloseButton />}
         <ModalBody>
           <Box>
+            <FormLabel mt={4}>Token</FormLabel>
+            <Select
+              value={token}
+              onChange={({ target: { value } }) => {
+                setToken(value);
+              }}
+            >
+              {tokens.map((t, i) => (
+                <Option key={i} value={t.token}>
+                  {t.name}
+                </Option>
+              ))}
+            </Select>
             <FormLabel mt={4}>Type</FormLabel>
             <Select
               value={type}
@@ -151,18 +166,7 @@ export const ModalPreview = ({ isOpen, onClose, data }: IModalPreview) => {
               theme={nord}
             />
             <FormLabel mt={4}>GHA Secret</FormLabel>
-            <Select
-              value={token}
-              onChange={({ target: { value } }) => {
-                setToken(value);
-              }}
-            >
-              {tokens.map((t, i) => (
-                <Option key={i} value={t.token}>
-                  {t.name}
-                </Option>
-              ))}
-            </Select>
+
             {!!token && (
               <CopyBlock
                 text={ghaSecret}
