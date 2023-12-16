@@ -15,7 +15,7 @@ FROM node:20.10.0-alpine3.18
 WORKDIR /app
 COPY --from=builder /usr/bin/docker /usr/bin/docker
 COPY --from=builder /usr/bin/docker-compose /usr/bin/docker-compose
-COPY --from=builder /app/frontend/dist /app/web
+COPY --from=builder /app/frontend/dist /app/.web
 COPY --from=builder /app/backend/single/index.cjs /app/index.cjs
 COPY /scripts/run.sh /usr/local/bin/lumbung
 RUN chmod +x /usr/local/bin/lumbung

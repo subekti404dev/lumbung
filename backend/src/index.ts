@@ -23,9 +23,9 @@ app.get("/ping", (req: Request, res: Response) => {
 
 app.use("/v1", v1Routes);
 
-app.use(express.static("web"));
+app.use(express.static(".web"));
 app.get("*", (req, res) => {
-  res.sendFile(path.join(process.cwd(), "web", "index.html"));
+  res.sendFile(path.join(process.cwd(), ".web", "index.html"));
 });
 
 const server = app.listen(port, () => {
